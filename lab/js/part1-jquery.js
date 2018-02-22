@@ -171,5 +171,24 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
 // the function passed to `ready` until the HTML document is fully loaded and all scripts have
 // been interpreted. It is, therefore, an example of asynchronous behavior.
 $(document).ready(function() {
-  // Do your stuff here
+  //set labels
+  $("#main-heading").text("Philadelphia Crime Snippet");
+  $("#text-label1").text("General Crime Category");
+  $("#text-label2").text("Location Block");
+  $("#text-label3").text("District");
+  $("#number-label").text("PSA");
+  $("#checkbox-label1").text("Lat?");
+  $("#checkbox-label2").text("Lng?");
+  $("#color-label").text("What color?");
+
+  //set values
+  $("#text-input1").val("Narcotic / Drug Law Violations");
+  $("#text-input2").val("2200 BLOCK STEWART ST");
+  $("#text-input3").val("19");
+  $("#numeric-input").val(2);
+  $("#cbox-input1").prop('checked',true);
+  $("#cbox-input2").prop('checked',true);
+  $("#color-input").val("#6E7AFF");
+
+  //
 });
