@@ -177,6 +177,8 @@ $(document).ready(function() {
   $("#text-label2").text("Location Block");
   $("#text-label3").text("District");
   $("#number-label").text("PSA");
+  $("#number-label1").text("Lat");
+  $("#number-label2").text("Lng");
   $("#checkbox-label1").text("Lat?");
   $("#checkbox-label2").text("Lng?");
   $("#color-label").text("What color?");
@@ -186,9 +188,61 @@ $(document).ready(function() {
   $("#text-input2").val("2200 BLOCK STEWART ST");
   $("#text-input3").val("19");
   $("#numeric-input").val(2);
+  $("#numeric-input1").val(39.9771532618949);
+  $("#numeric-input2").val(-75.1716547369047);
   $("#cbox-input1").prop('checked',true);
   $("#cbox-input2").prop('checked',true);
   $("#color-input").val("#6E7AFF");
 
-  //
+  //getting/reading input values
+  var input = function(){
+    var valkey = ['#text-input1','#text-input2','#text-input3','#numeric-input','#color-input'];
+    var checkbox = ['#cbox-input1','#cbox-input2'];
+    var vals = _.map(valkey, function(item){return $(item).val();});
+    var check = _.map(checkbox, function(item){return $(item).prop("checked");});
+    vals.splice(4,0,check[0],check[1]);
+    var all_input = {};
+    for (i = 0; i< valkey. length; i++){
+      all_input[valkey[i]] = vals[i];
+    }
+    console.log(all_input);
+    return all_input;
+  };
+
+  //enable user interaction with the form
+  $("#text-input1").prop('disabled', false);
+  $("#text-input2").prop('disabled', false);
+  $("#text-input3").prop('disabled', false);
+  $("#numeric-input1").prop('disabled', false);
+  $("#cbox-input1").prop('disabled', false);
+  $("#cbox-input2").prop('disabled', false);
+  $("#color-input").prop('disabled', false);
+
+  //add button trigger to log form object to console
+  $("button").text('Filter');
+  $("button").click(function() {
+    input();
+    marker();
+  });
+
+  //plot data onto map
+    var marker = function(){
+    var markercolor = $("#color-input").val();
+    var crimetype = $("#text-input1").val();
+    var lat = $('#numeric-input1').val();
+    var lng = $('#numeric-input2').val();
+    var latlng = [$('#numeric-input1').val(),$('#numeric-input2').val()];
+    var addMarker = {
+      radius: 10,
+      fillColor: markercolor,
+      color: "#000",
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 0.7
+    };
+    L.circleMarker(latlng, addMarker).addTo(map).bindPopup(crimetype).openPopup();
+  };
+
+
+
 });
