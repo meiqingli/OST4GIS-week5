@@ -34,6 +34,27 @@
        }
        var one = justOne();
 ===================== */
+/* =====================
+ Leaflet setup - feel free to ignore this
+===================== */
+
+var map = L.map('map', {
+  center: [39.9522, -75.1639],
+  zoom: 14
+});
+
+var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
+  attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  subdomains: 'abcd',
+  minZoom: 0,
+  maxZoom: 20,
+  ext: 'png'
+}).addTo(map);
+
+/* =====================
+ CODE EXECUTED HERE!
+===================== */
+
 $(document).ready(function() {
   //set labels
   $("#main-heading").text("Philadelphia Crime Snippet");
@@ -41,16 +62,14 @@ $(document).ready(function() {
   $("#text-label2").text("LatKey");
   $("#text-label3").text("LngKey");
 
+  $("#text-input1").val("https://raw.githubusercontent.com/CPLN-692-401/datasets/master/json/philadelphia-crime-snippet.json");
+  $("#text-input2").val("Lat");
+  $("#text-input3").val("Lng");
+
   //getting/reading input values
   var url;
   var lat;
   var lng;
-
-  var input = function(){
-    url = $("#text-input1").val();
-    lat = $("#text-input2").val();
-    lng = $("#text-input3").val();
-  };
 
   //enable user interaction with the form
   $("#text-input1").prop('disabled', false);
@@ -78,7 +97,10 @@ var plotMarkers = function(dat) {
 };
 
 var plot = function(){
-  input();
+  url = $("#text-input1").val();
+  lat = $("#text-input2").val();
+  lng = $("#text-input3").val();
+  console.log(url, lat, lng);
   var downloadData = $.ajax(url);
   downloadData.done(function(data) {
     var parsed = parseData(data);
@@ -113,24 +135,4 @@ $("button").click(function() {
   the downloaded and parsed data.
 
   Note: You can add or remove from the code at the bottom of this file for the stretch goal.
-===================== */
-
-/* =====================
- Leaflet setup - feel free to ignore this
-===================== */
-
-var map = L.map('map', {
-  center: [39.9522, -75.1639],
-  zoom: 14
-});
-var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
-  attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-  subdomains: 'abcd',
-  minZoom: 0,
-  maxZoom: 20,
-  ext: 'png'
-}).addTo(map);
-
-/* =====================
- CODE EXECUTED HERE!
 ===================== */

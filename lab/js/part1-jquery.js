@@ -242,7 +242,4 @@ $(document).ready(function() {
     };
     L.circleMarker(latlng, addMarker).addTo(map).bindPopup(crimetype).openPopup();
   };
-
-
-
 });
