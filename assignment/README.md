@@ -29,7 +29,7 @@ own key or label for these values. For example,
 [philadelphia bike crashes](https://raw.githubusercontent.com/CPLN690-MUSA610/datasets/master/json/philadelphia-bike-crashes-snippet.json)
 uses LAT and LNG while
 [solar installations](https://raw.githubusercontent.com/CPLN690-MUSA610/datasets/master/json/philadelphia-solar-installations.json)
-uses X and Y or LONG\_ and LAT. The user will need to be able to enter the keys
+uses X and Y or LONG and LAT. The user will need to be able to enter the keys
 which they hope to extract Latitude/Longitude information from in addition to
 the URL for the dataset.
 
@@ -45,4 +45,3 @@ event on it. When the button is clicked, it should run a function that selects
 the three input fields, checks their values, and assigns those values to
 variables. Those variables should be used in your application to replace
 previously hardcoded data.
-

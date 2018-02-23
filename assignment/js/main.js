@@ -34,9 +34,31 @@
        }
        var one = justOne();
 ===================== */
+$(document).ready(function() {
+  //set labels
+  $("#main-heading").text("Philadelphia Crime Snippet");
+  $("#text-label1").text("Dataset URL");
+  $("#text-label2").text("LatKey");
+  $("#text-label3").text("LngKey");
 
-// Use the data source URL from lab 1 in this 'ajax' function:
-var downloadData = $.ajax("https://raw.githubusercontent.com/CPLN-692-401/datasets/master/json/philadelphia-crime-snippet.json");
+  //getting/reading input values
+  var url;
+  var lat;
+  var lng;
+
+  var input = function(){
+    url = $("#text-input1").val();
+    lat = $("#text-input2").val();
+    lng = $("#text-input3").val();
+  };
+
+  //enable user interaction with the form
+  $("#text-input1").prop('disabled', false);
+  $("#text-input2").prop('disabled', false);
+  $("#text-input3").prop('disabled', false);
+
+});
+
 
 // Write a function to prepare your data (clean it up, organize it as you like, create fields, etc)
 var parseData = function(dat) {
@@ -47,7 +69,7 @@ var parseData = function(dat) {
 //underscore each
 // Write a function to use your parsed data to create a bunch of marker objects (don't plot them!)
 var makeMarkers = function(dat) {
-  return _.map(dat, function(item){return L.marker([item.Lat, item.Lng]).bindPopup(item["General Crime Category"]);});
+  return _.map(dat, function(item){return L.marker([item[lat], item[lng]]);});
 };
 
 // Now we need a function that takes this collection of markers and puts them on the map
@@ -55,6 +77,14 @@ var plotMarkers = function(dat) {
   return _.map(dat, function(item){return item.addTo(map);});
 };
 
+var plot = function(){
+  input();
+  var downloadData = $.ajax(url);
+  downloadData.done(function(data) {
+    var parsed = parseData(data);
+    var markers = makeMarkers(parsed);
+    plotMarkers(markers);});
+};
 // At this point you should see a bunch of markers on your map.
 // Don't continue on until you can make them appear!
 
@@ -71,10 +101,11 @@ var plotMarkers = function(dat) {
   user's input.
 ===================== */
 
-// Look to the bottom of this file and try to reason about what this function should look like
-var removeMarkers = function(dat) {
-  return _.map(dat, function(item){return map.removeLayer(item);});
-};
+//add button trigger to log form object to console
+$("button").text('Filter');
+$("button").click(function() {
+  plot();
+});
 
 /* =====================
   Optional, stretch goal
@@ -103,10 +134,3 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
 /* =====================
  CODE EXECUTED HERE!
 ===================== */
-
-downloadData.done(function(data) {
-  var parsed = parseData(data);
-  var markers = makeMarkers(parsed);
-  plotMarkers(markers);
-  removeMarkers(markers);
-});
